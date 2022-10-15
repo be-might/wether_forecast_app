@@ -3,7 +3,7 @@ import 'package:wether_forecast_app/models/weeather_forecast_daily.dart';
 import 'package:wether_forecast_app/utilities/forecast_util.dart';
 
 class CityViewWidget extends StatelessWidget {
-  final AsyncSnapshot<dynamic> snapshot;
+  final AsyncSnapshot<WeatherForecast> snapshot;
   const CityViewWidget({super.key, required this.snapshot});
 
   @override

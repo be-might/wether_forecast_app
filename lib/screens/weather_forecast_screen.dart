@@ -3,6 +3,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:wether_forecast_app/api/weather_api.dart';
 import 'package:wether_forecast_app/models/weeather_forecast_daily.dart';
 import 'package:wether_forecast_app/widgets/city_view.dart';
+import 'package:wether_forecast_app/widgets/detail_view.dart';
+import 'package:wether_forecast_app/widgets/temp_view.dart';
 
 class WeatherForecastScreen extends StatefulWidget {
   const WeatherForecastScreen({super.key});
@@ -48,8 +50,19 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
               if (snapshot.hasData) {
                 return Column(
                   children: [
-                    SizedBox(height: 50,),
-                    CityViewWidget(snapshot: snapshot)
+                    SizedBox(
+                      height: 50,
+                    ),
+                    CityViewWidget(
+                        snapshot: snapshot as AsyncSnapshot<WeatherForecast>),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    TempView(snapshot: snapshot),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    DetailViewWidget(snapshot: snapshot)
                   ],
                 );
               } else {

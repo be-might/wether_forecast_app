@@ -3,7 +3,7 @@ class Constants {
   static const String WEATHER_BASE_SCHME = 'https://';
   static const String WEATHER_BASE_URL_DOMAIN = 'api.openweathermap.org';
   static const String WEATHER_FORECAT_PATH = '/data/2.5/forecast/daily';
-  static const String WEATHER_IMAGES_PATH = 'img/w/';
+  static const String WEATHER_IMAGES_PATH = '/img/w/';
   static const String WEATHER_IMAGES_URL =
       WEATHER_BASE_SCHME + WEATHER_BASE_URL_DOMAIN + WEATHER_IMAGES_PATH;
 }
