@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:wether_forecast_app/api/weather_api.dart';
 import 'package:wether_forecast_app/models/weeather_forecast_daily.dart';
+import 'package:wether_forecast_app/screens/city_screen.dart';
 import 'package:wether_forecast_app/widgets/bottom_list_view.dart';
 import 'package:wether_forecast_app/widgets/city_view.dart';
 import 'package:wether_forecast_app/widgets/detail_view.dart';
@@ -24,7 +25,7 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
     forecastObject =
         WeatherApi().fetchWeatherForecatWithCity(cityName: _cityName);
 
-    forecastObject!.then((value) => print(value.list![0].weather![0].main));
+    // forecastObject!.then((value) => print(value.list![0].weather![0].main));
   }
 
   @override
@@ -32,14 +33,29 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('openweathermap.org'),
+        title: const Text('openweathermap.org'),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.my_location),
+          icon: const Icon(Icons.my_location),
           onPressed: () {},
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.location_city))
+          IconButton(
+              onPressed: () async {
+                var tappedName = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CityScreen(),
+                    ));
+                if (tappedName != null) {
+                  setState(() {
+                    _cityName = tappedName;
+                    forecastObject = WeatherApi()
+                        .fetchWeatherForecatWithCity(cityName: _cityName);
+                  });
+                }
+              },
+              icon: const Icon(Icons.location_city))
         ],
       ),
       body: ListView(children: [
@@ -51,20 +67,20 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
               if (snapshot.hasData) {
                 return Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                     CityViewWidget(
                         snapshot: snapshot as AsyncSnapshot<WeatherForecast>),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                     TempView(snapshot: snapshot),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                     DetailViewWidget(snapshot: snapshot),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                     BottomListView(
@@ -73,7 +89,8 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                   ],
                 );
               } else {
-                return Center(
+                return const Center(
+                  heightFactor: 7,
                   child: SpinKitDoubleBounce(
                     color: Colors.black,
                     size: 100,
